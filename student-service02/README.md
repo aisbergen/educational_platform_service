@@ -1,15 +1,15 @@
 # student-service
 
-## Описание
+## Description
 
-Этот микросервис разработан с использованием Gin, JWT и PostgreSQL для обработки операций создания, получения, обновления и удаления студентов, а также взаимодействия с другим микросервисом для получения информации о курсах, на которые студенты записаны.
+This microservice is designed using Gin, JWT, and PostgreSQL to handle the operations of creating, getting, updating, and deleting students, as well as interacting with another microservice to get information about the courses students are enrolled in.
 
-## Технологии
+## Technologies
 
-В проекте использованы следующие технологии:
-  *  JWT (JSON Web Tokens) - для аутентификации и авторизации пользователей
-  *  Gin - веб-фреймворк на языке Go для создания HTTP-серверов и обработки маршрутов
-  *  PostgreSQL - система управления базами данных, используемая для хранения информации о курсах
-  *  Docker Compose - инструмент для определения и запуска многоконтейнерных Docker-приложений
-  *  HTTP-запросы - используются для взаимодействия с микросервисами
-  *  В проекте также используется Redis, который является ин-memory базой данных
+The following technologies were used in the project:
+   * JWT (JSON Web Tokens) - for user authentication and authorization
+   * Gin is a Go web framework for building HTTP servers and handling routes
+   * PostgreSQL is a database management system used to store course information
+   * Docker Compose - a tool for defining and running multi-container Docker applications
+   * HTTP requests - used to interact with microservices
+   * The project also uses Redis, which is an in-memory database
