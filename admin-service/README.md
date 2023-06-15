@@ -14,4 +14,7 @@ The following technologies were used in the project:
    * HTTP requests - used to interact with microservices
    * The project also uses Redis, which is an in-memory database
 
+ ## Documentation
+  Link: http://localhost:8080/swagger/index.html#/
+
 
