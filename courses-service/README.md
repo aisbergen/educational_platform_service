@@ -1,13 +1,13 @@
 # courses-service
 
-## Описание
+## Description
 
-Микросервис предназначен для создания, получения, обновления и удаления курсов. Он также взаимодействует с другим микросервисом student-service для получения информации о студентах, записанных на курс.
+The microservice is designed to create, receive, update and delete courses. It also interacts with another student-service microservice to get information about the students enrolled in the course.
 
-## Технологии
+## Technologies
 
-В проекте использованы следующие технологии:
-  *  Gin - веб-фреймворк на языке Go для создания HTTP-серверов и обработки маршрутов
-  *  PostgreSQL - система управления базами данных, используемая для хранения информации о курсах
-  *  Docker Compose - инструмент для определения и запуска многоконтейнерных Docker-приложений
-  *  HTTP-запросы - используются для взаимодействия с микросервисами
+The following technologies were used in the project:
+   * Gin is a Go web framework for building HTTP servers and handling routes
+   * PostgreSQL is a database management system used to store course information
+   * Docker Compose - a tool for defining and running multi-container Docker applications
+   * HTTP requests - used to interact with microservices
