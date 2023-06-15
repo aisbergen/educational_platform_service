@@ -13,3 +13,7 @@ The following technologies were used in the project:
    * Docker Compose - a tool for defining and running multi-container Docker applications
    * HTTP requests - used to interact with microservices
    * The project also uses Redis, which is an in-memory database
+
+## Documentation
+  Link: https://github.com/aisbergen/educational_platform_service/assets/97673449/99f380c9-9097-4840-b9cb-9de44e8d07c5
+
