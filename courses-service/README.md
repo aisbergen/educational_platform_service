@@ -11,3 +11,6 @@ The following technologies were used in the project:
    * PostgreSQL is a database management system used to store course information
    * Docker Compose - a tool for defining and running multi-container Docker applications
    * HTTP requests - used to interact with microservices
+
+## Documentation
+  Link: http://localhost:8000/swagger/index.html
