@@ -15,6 +15,6 @@ The following technologies were used in the project:
    * The project also uses Redis, which is an in-memory database
 
  ## Documentation
-  Link: http://localhost:8080/swagger/index.html#/
+  Link:http://localhost:8080/swagger/index.html#/
 
 
