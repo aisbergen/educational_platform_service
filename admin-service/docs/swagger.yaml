@@ -1,0 +1,540 @@
+basePath: /api/v1/
+definitions:
+  domain.Courses:
+    properties:
+      description:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      students:
+        items:
+          type: string
+        type: array
+    type: object
+  domain.ResponseCourse:
+    properties:
+      course:
+        $ref: '#/definitions/domain.Courses'
+    type: object
+  domain.Session:
+    properties:
+      refreshtoken:
+        type: string
+    type: object
+  domain.Student:
+    properties:
+      courses:
+        items:
+          type: string
+        type: array
+      email:
+        maxLength: 64
+        type: string
+      gpa:
+        type: number
+      id:
+        type: integer
+      name:
+        maxLength: 64
+        minLength: 3
+        type: string
+      password:
+        maxLength: 64
+        minLength: 8
+        type: string
+    required:
+    - email
+    - gpa
+    - name
+    - password
+    type: object
+  domain.Token:
+    properties:
+      accesstoken:
+        type: string
+      refreshtoken:
+        type: string
+    type: object
+  domain.UpdateStudentInput:
+    properties:
+      courses:
+        items:
+          type: string
+        type: array
+      email:
+        type: string
+      gpa:
+        type: number
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  v1.Resposne:
+    properties:
+      message:
+        type: string
+    type: object
+  v1.createCourses:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      students:
+        items:
+          type: string
+        type: array
+    required:
+    - description
+    - name
+    - students
+    type: object
+  v1.inputAdmin:
+    properties:
+      email:
+        maxLength: 64
+        type: string
+      name:
+        maxLength: 64
+        type: string
+      password:
+        maxLength: 64
+        minLength: 8
+        type: string
+    required:
+    - email
+    - name
+    - password
+    type: object
+  v1.inputCourse:
+    properties:
+      description:
+        type: string
+      name:
+        type: string
+      students:
+        items:
+          type: string
+        type: array
+    type: object
+  v1.inputStudent:
+    properties:
+      courses:
+        items:
+          type: string
+        type: array
+      email:
+        maxLength: 64
+        type: string
+      gpa:
+        type: number
+      name:
+        maxLength: 64
+        minLength: 3
+        type: string
+      password:
+        maxLength: 64
+        minLength: 8
+        type: string
+    required:
+    - email
+    - gpa
+    - name
+    - password
+    type: object
+  v1.signInInput:
+    properties:
+      email:
+        maxLength: 64
+        type: string
+      password:
+        maxLength: 64
+        minLength: 8
+        type: string
+    required:
+    - email
+    - password
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API Server for Admin Application
+  title: Admin Service API
+  version: "1.0"
+paths:
+  /admin/auth/refresh:
+    post:
+      consumes:
+      - application/json
+      description: Refresh Token
+      parameters:
+      - description: Admin
+        in: body
+        name: account
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Session'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Token'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+      summary: Refresh Token
+      tags:
+      - admin
+  /admin/courses/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Admin Create New Courses
+      parameters:
+      - description: course id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.ResponseCourse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+      security:
+      - AdminAuth: []
+      summary: Admin Get Course By ID
+      tags:
+      - Courses
+  /admin/courses/{id}/delete:
+    delete:
+      consumes:
+      - application/json
+      description: Admin Delete Student
+      parameters:
+      - description: student id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+      security:
+      - AdminAuth: []
+      summary: Admin Delete Student
+      tags:
+      - Students
+  /admin/courses/{id}/students:
+    get:
+      consumes:
+      - application/json
+      description: Admin Get Students By CoursId
+      parameters:
+      - description: course id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+      security:
+      - AdminAuth: []
+      summary: Admin Get Students By CoursId
+      tags:
+      - Courses
+  /admin/courses/{id}/update:
+    put:
+      consumes:
+      - application/json
+      description: Admin Update Course
+      parameters:
+      - description: course update info
+        in: body
+        name: account
+        required: true
+        schema:
+          $ref: '#/definitions/v1.inputCourse'
+      - description: course id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+      security:
+      - AdminAuth: []
+      summary: Admin Update Course
+      tags:
+      - Courses
+  /admin/courses/create:
+    post:
+      consumes:
+      - application/json
+      description: Admin Create New Courses
+      parameters:
+      - description: Courses
+        in: body
+        name: account
+        required: true
+        schema:
+          $ref: '#/definitions/v1.createCourses'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+      security:
+      - AdminAuth: []
+      summary: Admin Create New Courses
+      tags:
+      - Courses
+  /admin/sign-in:
+    post:
+      consumes:
+      - application/json
+      description: Sign-in
+      parameters:
+      - description: Admin
+        in: body
+        name: account
+        required: true
+        schema:
+          $ref: '#/definitions/v1.signInInput'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+      summary: Sign-in
+      tags:
+      - admin
+  /admin/sign-up:
+    post:
+      consumes:
+      - application/json
+      description: Create a new admin with the input payload
+      parameters:
+      - description: Admin
+        in: body
+        name: account
+        required: true
+        schema:
+          $ref: '#/definitions/v1.inputAdmin'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+      summary: Create a new admin
+      tags:
+      - admin
+  /admin/students/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Admin Get Student By ID
+      parameters:
+      - description: student id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Student'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+      security:
+      - AdminAuth: []
+      summary: Admin Get Student By ID
+      tags:
+      - Students
+  /admin/students/{id}/courses:
+    get:
+      consumes:
+      - application/json
+      description: Admin Get Students By CoursId
+      parameters:
+      - description: course id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: byte
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+      security:
+      - AdminAuth: []
+      summary: Admin Get Course By Students
+      tags:
+      - Students
+  /admin/students/create:
+    post:
+      consumes:
+      - application/json
+      description: Admin Create Student
+      parameters:
+      - description: Admin
+        in: body
+        name: account
+        required: true
+        schema:
+          $ref: '#/definitions/v1.inputStudent'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+      security:
+      - AdminAuth: []
+      summary: Admin Create Student
+      tags:
+      - Students
+  /admin/students/update/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Admin Update Student
+      parameters:
+      - description: student update info
+        in: body
+        name: account
+        required: true
+        schema:
+          $ref: '#/definitions/domain.UpdateStudentInput'
+      - description: student id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/v1.Resposne'
+      security:
+      - AdminAuth: []
+      summary: Admin Update Student
+      tags:
+      - Students
+securityDefinitions:
+  AdminAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

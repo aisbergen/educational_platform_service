@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  postgres:
+    restart: always
+    image: postgres:alpine
+    volumes:
+      - ./migration:/docker-entrypoint-initdb.d
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=students
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+    command: postgres -c 'shared_preload_libraries='
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U root -d students"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  redis:
+    restart: always
+    image: redis:latest
+    ports:
+      - 6379:6379
+    environment:
+      - PORT_REDIS=6380

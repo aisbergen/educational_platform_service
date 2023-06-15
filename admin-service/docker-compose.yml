@@ -1,0 +1,23 @@
+version: '3.8'
+
+networks:
+  internal:
+
+services:
+  db-admin:
+    restart: always
+    image: postgres:alpine
+    volumes:
+      - ./migration:/docker-entrypoint-initdb.d
+    ports:
+      - 5435:5432
+    environment:
+      - POSTGRES_DB=admins
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+    command: postgres -c 'shared_preload_libraries='
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U root -d admins"]
+      interval: 10s
+      timeout: 5s
+      retries: 5

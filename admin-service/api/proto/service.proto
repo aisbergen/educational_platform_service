@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+option go_package = "/admin-service/api/adminstudent;adminstudent";
+
+message Admin {
+  int32 id = 1;
+  string email = 2;
+  string name = 3;
+  string password = 4;
+}
+
+message Session {
+  string refresh_token = 1;
+}
+
+message Token {
+  string refresh_token = 1;
+  string access_token = 2;
+}
+
+message Courses {
+  string name = 1;
+  string description = 2;
+  repeated string students = 3;
+}
+
+message Student {
+  string email = 1;
+  string name = 2;
+  string password = 3;
+  float gpa = 4;
+  repeated string courses = 5;
+}
