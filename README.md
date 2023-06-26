@@ -34,5 +34,5 @@ Course service http://localhost:8000/swagger/index.html
 
 ## Contributing
 
-Thanks to @assyeet and @Nurkha17 for considering contributing to this project!
+Thanks to @aisbergen, @assyeet and @Nurkha17 for considering contributing to this project!
 
