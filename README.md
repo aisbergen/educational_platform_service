@@ -1,6 +1,5 @@
 # educational_platform_service
 
-A brief description of the project.
 
 ## Table of Contents
 
